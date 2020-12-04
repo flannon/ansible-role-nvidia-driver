@@ -3,17 +3,22 @@
 # for older kernels.
 - name: ensure we have kernel-headers installed for the current kernel
   block:
-  - name: attempt to install kernel support packages for current version
+    #- name: attempt to install kernel support packages for current version
+    #  dnf:
+      #    name: "{{ item }}-{{ ansible_kernel }}"
+      #    state: present
+      #  with_items:
+      #  - "kernel-headers"
+      #  - "kernel-tools"
+      #  - "kernel-tools-libs"
+      #  - "kernel-devel"
+      #  - "kernel-debug-devel"
+      #  environment: "{{proxy_env if proxy_env is defined else {}}}"
+  - name: install kernel support packages for curent version
     dnf:
-      name: "{{ item }}-{{ ansible_kernel }}"
-      state: present
-    with_items:
-    - "kernel-headers"
-    - "kernel-tools"
-    - "kernel-tools-libs"
-    - "kernel-devel"
-    - "kernel-debug-devel"
-    environment: "{{proxy_env if proxy_env is defined else {}}}"
+      name: ['kernel-headers', 'kernel-tools', 'kernel-tools-libs', 'kernel-devel', 'kernel-debug-devel']`
+      environment: "{{proxy_env if proxy_env is defined else {}}}"
+
   rescue:
   - name: update the kernel to latest version so we have a supported version
     dnf:
@@ -31,7 +36,7 @@
 
 - name: wait for the reboot
   pause:
-    seconds: 300
+    seconds: 30
     
     #- name: add epel repo
     #  yum_repository:
@@ -49,19 +54,19 @@
   dnf:
     name: dkms
 
-- name: add repo
-  yum_repository:
-    name: cuda
-    description: NVIDIA CUDA YUM Repo
-    baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
-    gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
-  environment: "{{proxy_env if proxy_env is defined else {}}}"
+    #- name: add repo
+    #yum_repository:
+    # name: cuda
+    # description: NVIDIA CUDA YUM Repo
+    # baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
+    # gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
+    #environment: "{{proxy_env if proxy_env is defined else {}}}"
 
-- name: install driver packages
-  dnf:
-    name: "{{ nvidia_driver_package_version | ternary('nvidia-driver-latest-dkms-'+nvidia_driver_package_version, 'nvidia-driver-latest-dkms') }}"
-    state: "{{ nvidia_driver_package_state }}"
-    autoremove: "{{ nvidia_driver_package_state == 'absent' }}"
-  register: install_driver
-  environment: "{{proxy_env if proxy_env is defined else {}}}"
+    #- name: install driver packages
+    #  dnf:
+    #name: "{{ nvidia_driver_package_version | ternary('nvidia-driver-latest-dkms-'+nvidia_driver_package_version, 'nvidia-driver-latest-dkms') }}"
+    #state: "{{ nvidia_driver_package_state }}"
+    #autoremove: "{{ nvidia_driver_package_state == 'absent' }}"
+    # register: install_driver
+    #environment: "{{proxy_env if proxy_env is defined else {}}}"
 
