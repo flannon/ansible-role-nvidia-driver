@@ -16,7 +16,7 @@
       #  environment: "{{proxy_env if proxy_env is defined else {}}}"
   - name: install kernel support packages for curent version
     dnf:
-      name: ['kernel-headers', 'kernel-tools', 'kernel-tools-libs', 'kernel-devel', 'kernel-debug-devel']`
+      name: ['kernel-headers','kernel-tools','kernel-tools-libs','kernel-devel','kernel-debug-devel']
       environment: "{{proxy_env if proxy_env is defined else {}}}"
 
   rescue:
