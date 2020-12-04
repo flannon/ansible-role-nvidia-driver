@@ -5,7 +5,6 @@
   block:
     - name: attempt to install kernel support packages for current version
       dnf:
-        .
         name: "{{ item }}-{{ ansible_kernel }}"
         state: present
         with_items:
