@@ -54,13 +54,17 @@
   dnf:
     name: dkms
 
-    #- name: add repo
-    #yum_repository:
-    # name: cuda
-    # description: NVIDIA CUDA YUM Repo
-    # baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
-    # gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
-    #environment: "{{proxy_env if proxy_env is defined else {}}}"
+- name: add repo
+  yum_repository:
+    name: cuda
+     escription: NVIDIA CUDA YUM Repo
+     baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
+     gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
+    environment: "{{proxy_env if proxy_env is defined else {}}}"
+
+- name: install driver packages
+  deug:
+    msg: This is where the driver packages goes
 
     #- name: install driver packages
     #  dnf:
