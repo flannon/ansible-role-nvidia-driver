@@ -45,7 +45,7 @@
   dnf:
     name: epel-release
 
--name: install dependencies
+- name: install dependencies
   dnf:
     name: dkms
 
