@@ -4,16 +4,21 @@
     state: latest
     update_cache: "expire-cache"
 
-- name: install dependencies
+- name: enable nvidia-persistenced-3:{{ nvidia_driver_package_version }}
   dnf:
-    name: dkms
-    state: latest
+    name: nvidia-persistenced-3:{{ nvidia_driver_package_version }}
+    state: present
+    update_cache: "expire-cache"
 
 - name: install nvidia-driver-module
   dnf:
     name: "@nvidia-driver:latest-dkms"
     state: "latest"
     update_cache: "expire-cache"
+#
+#- name: install dependencies
+#  dnf:
+#    name: dkms
 #
 #- name: add repo
 #  yum_repository:
