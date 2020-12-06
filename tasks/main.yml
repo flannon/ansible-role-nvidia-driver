@@ -22,7 +22,7 @@
 
 - name: "What's going on!!!"
   debug:
-    msg: "distribution {{ ansible_fact[distribution] }}; ansible_os_family {{ ansible_facts[ansible_os_family] }}; distribution_major_version {{ ansible_facts[distribution_major_versio] }}; build_stage {{ build_stage }}"
+    msg: "distribution {{ ansible_fact[distribution] }}; ansible_os_family {{ ansible_facts[ansible_os_family] }}; distribution_major_version {{ ansible_facts[distribution_major_version] }}; build_stage {{ build_stage }}"
 
 - name: redhat family version 8 install tasks stage 1
   include_tasks: install-redhat-8-stage1.yml
