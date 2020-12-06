@@ -11,6 +11,11 @@ nvidia_driver_rhel_epel_repo_gpgkey: "https://epel.mirror.constant.com//RPM-GPG-
 nvidia_driver_rhel_cuda_repo_baseurl: "https://developer.download.nvidia.com/compute/cuda/repos/{{ _rhel_repo_dir }}/"
 nvidia_driver_rhel_cuda_repo_gpgkey: "https://developer.download.nvidia.com/compute/cuda/repos/{{ _rhel_repo_dir }}/7fa2af80.pub"
 
+# RedHat version 8
+cuda_repo_rhel8_distro: "10.2.89"
+cuda_repo_rhel8_distro_version: "1"
+rhel_kernel_version: "4.18.0-193.28.1.el8_2"
+
 # Ubuntu
 nvidia_driver_ubuntu_cuda_repo_gpgkey_url: "https://developer.download.nvidia.com/compute/cuda/repos/{{ _ubuntu_repo_dir }}/7fa2af80.pub"
 nvidia_driver_ubuntu_cuda_repo_gpgkey_id: "7fa2af80"

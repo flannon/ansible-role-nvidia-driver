@@ -11,17 +11,25 @@
 
 - name: redhat family version 7 install tasks
   include_tasks: install-redhat-7.yml
-  #when: ansible_os_family == 'RedHat'
   when:
     - ansible_facts['os_family'] == "RedHat"
     - ansible_facts['distribution_major_version'] == "7"
 
-- name: redhat family version 8 install tasks
-  include_tasks: install-redhat-8.yml
+- name: redhat family version 8 install tasks stage 1
+  include_tasks: install-redhat-8-stage1.yml
   #when: ansible_os_family == 'RedHat'
   when:
     - ansible_facts['os_family'] == "RedHat"
     - ansible_facts['distribution_major_version'] == "8"
+    - build_stage == 1
+
+- name: redhat family version 8 install tasks stage 2
+  include_tasks: install-redhat-8-stage2.yml
+  #when: ansible_os_family == 'RedHat'
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version'] == "8"
+    - build_stage == 2
 
 - name: create persistenced override dir
   file:
