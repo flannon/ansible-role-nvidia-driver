@@ -12,8 +12,9 @@
 
 - name: install nvidia-driver-module
   dnf:
-    name: "@nvidia-driver:latest-dkms"
-    state: "latest"
+    #name: "@nvidia-driver:latest-dkms"
+    name: cuda-drivers-0
+    state: {{ nvidia_driver_package_version }}
     update_cache: "expire-cache"
 #
 #- name: install dependencies
