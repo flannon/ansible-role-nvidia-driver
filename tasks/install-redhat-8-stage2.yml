@@ -4,17 +4,9 @@
     state: latest
     update_cache: "expire-cache"
 
-#
-#- name: enable nvidia-persistenced-3:{{ nvidia_driver_package_version }}
-#  dnf:
-#    name: nvidia-persistenced-3:{{ nvidia_driver_package_version }}
-#    state: present
-#    update_cache: "expire-cache"
-
 - name: install nvidia-driver-module
   dnf:
-    #name: "@nvidia-driver:latest-dkms"
-    name: cuda-drivers-0
+    name: "@nvidia-driver:latest-dkms"
     state: {{ nvidia_driver_package_version }}
     update_cache: "expire-cache"
 #
