@@ -4,15 +4,16 @@
     state: latest
     update_cache: "expire-cache"
 
+- name: install dependencies
+  dnf:
+    name: dkms
+    state: latest
+
 - name: install nvidia-driver-module
   dnf:
     name: "@nvidia-driver:latest-dkms"
     state: "latest"
     update_cache: "expire-cache"
-#
-#- name: install dependencies
-#  dnf:
-#    name: dkms
 #
 #- name: add repo
 #  yum_repository:
