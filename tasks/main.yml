@@ -16,9 +16,9 @@
 #    - ansible_facts['os_family'] == "RedHat"
 #    - ansible_facts['distribution_major_version'] == "7"
 
-- name: What's going on!
+- name: What's going on!!!
   debug:
-    msg: "distribution {{ distributition }}; ansible_os_family {{ ansible_os_family }}; distribution_major_version {{ distribution_major_version }}; build_stage {{ build_stage }}"
+    msg: "distribution {{ distribution }}; ansible_os_family {{ ansible_os_family }}; distribution_major_version {{ distribution_major_version }}; build_stage {{ build_stage }}"
 
 - name: redhat family version 8 install tasks stage 1
   include_tasks: install-redhat-8-stage1.yml
