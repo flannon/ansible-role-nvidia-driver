@@ -53,6 +53,11 @@
     state: latest
     update_cache: yes
 
+- name: install dependencies
+  dnf:
+    name: dkms
+    state: latest
+
 - name: add repo
   yum_repository:
     name: cuda
@@ -62,16 +67,12 @@
     enabled: yes
   environment: "{{proxy_env if proxy_env is defined else {}}}"
 
-- name: install nvidia-driver-module
-  dnf:
-    name: "@nvidie-driver:latest-dkms"
-    state: present
-    update_cache: yes
-
-- name: install dependencies
-  dnf:
-    name: dkms
-    state: latest
+#
+#- name: install nvidia-driver-module
+#  dnf:
+#    name: "@nvidie-driver:latest-dkms"
+#    state: present
+#    update_cache: yes
 
 #
 #- name: install driver packages
