@@ -66,7 +66,7 @@
     description: NVIDIA CUDA YUM Repo
     baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
     gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
-    enablerepo: true
+    enabled: true
   environment: "{{proxy_env if proxy_env is defined else {}}}"
 
 #
