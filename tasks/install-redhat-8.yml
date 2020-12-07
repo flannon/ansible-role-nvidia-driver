@@ -52,7 +52,7 @@
     name: epel-release
     state: latest
     update_cache: yes
-    enabled: true
+    enablerepo: true
 
 #
 #- name: install dependencies
@@ -66,7 +66,7 @@
     description: NVIDIA CUDA YUM Repo
     baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
     gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
-    enabled: yes
+    enablerepo: true
   environment: "{{proxy_env if proxy_env is defined else {}}}"
 
 #
