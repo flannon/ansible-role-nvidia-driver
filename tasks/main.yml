@@ -9,51 +9,9 @@
   include_tasks: install-ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
-#
-#- name: redhat family version 7 install tasks
-#  include_tasks: install-redhat-7.yml
-#  when:
-#    - ansible_facts['os_family'] == "RedHat"
-#    - ansible_facts['distribution_major_version'] == "7"
-
-#
-#- name: Print all available facts
-#  ansible.builtin.debug:
-#    var: ansible_facts
-#
-#- name: "DEBUG build_stage"
-#  debug:
-#    msg: "build_stage {{ build_stage }}"
-#
-#- name: "db2"
-#  debug:
-#    msg: "os_family {{ ansible_facts['os_family'] }}}"
-#
-#- name: "db3"
-#  debug:
-#    msg: "distribution {{ ansible_facts['distribution'] }}}"
-#
-#- name: "db4"
-#  debug:
-#    msg: "distribution_major_version {{ ansible_facts['distribution_major_version'] }}}"
-
 - name: redhat family version 8 install tasks
   include_tasks: install-redhat-8.yml
-  when:
-    - ansible_facts['os_family'] == "RedHat"
-    - ansible_facts['distribution_major_version'] == "8"
-
-#
-#- name: redhat family version 8 install tasks stage 1
-#  include_tasks: install-redhat-8-stage1.yml
-#  when: ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution_major_version'] == "8" and build_stage == 1
-#
-#- name: redhat family version 8 install tasks stage 2
-#  include_tasks: install-redhat-8-stage2.yml
-#  when:
-#    - ansible_facts['os_family'] == "RedHat"
-#    - ansible_facts['distribution_major_version'] == "8"
-#    - build_stage == 2
+  when: ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution_major_version'] == "8"
 
 - name: create persistenced override dir
   file:
