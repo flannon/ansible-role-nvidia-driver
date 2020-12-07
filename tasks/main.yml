@@ -38,11 +38,10 @@
 
 - name: redhat family version 8 install tasks stage 1
   include_tasks: install-redhat-8-stage1.yml
-  when:
-    - ansible_facts['os_family'] == "RedHat"
-    - ansible_facts['distribution'] == "CentOS"
-    - ansible_facts['distribution_major_version'] == "8"
-    - build_stage == 1
+  when: ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution_major_version'] == "8" and build_stage == 1
+  #- ansible_facts['os_family'] == "RedHat"
+  #  - ansible_facts['distribution_major_version'] == "8"
+  #  - build_stage == 1
 
 - name: redhat family version 8 install tasks stage 2
   include_tasks: install-redhat-8-stage2.yml
