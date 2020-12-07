@@ -50,7 +50,7 @@
 - name: install epel
   dnf:
     name: epel-release
-    version: latest
+    state: latest
     update_cache: "expire-cache"
 
 - name: install nvidia-driver-module
