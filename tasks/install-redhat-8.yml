@@ -56,7 +56,7 @@
 - name: install nvidia-driver-module
   dnf:
     name: "@nvidie-driver:latest-dkms"
-    state: {{ nvidia_driver_package_version }}
+    state: present
     update_cache: "expire-cache"
 
 - name: install dependencies
