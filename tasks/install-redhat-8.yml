@@ -51,13 +51,13 @@
   dnf:
     name: epel-release
     state: latest
-    update_cache: "expire-cache"
+    update_cache: yes
 
 - name: install nvidia-driver-module
   dnf:
     name: "@nvidie-driver:latest-dkms"
     state: present
-    update_cache: "expire-cache"
+    update_cache: yes
 
 - name: install dependencies
   dnf:
