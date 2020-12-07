@@ -55,10 +55,10 @@
     enablerepo: true
 
 #
-#- name: install dependencies
-#  dnf:
-#    name: dkms
-#    state: latest
+- name: install dependencies
+  dnf:
+    name: dkms
+    state: latest
 
 - name: add repo
   yum_repository:
