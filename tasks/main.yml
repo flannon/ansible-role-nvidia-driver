@@ -48,30 +48,27 @@
   include_tasks: install-redhat-8-stage2.yml
   when:
     - ansible_facts['os_family'] == "RedHat"
-    - ansible_facts['distribution'] == "CentOS"
     - ansible_facts['distribution_major_version'] == "8"
     - build_stage == 2
-    #- ansible_facts['distribution_major_version'] == "8"
 
-##
-#- name: create persistenced override dir
-#  file:
-#    path: /etc/systemd/system/nvidia-persistenced.service.d/
-#    state: directory
-#    recurse: yes
-#
-#- name: configure persistenced service to turn on persistence mode
-#  copy:
-#    src: nvidia-persistenced-override.conf
-#    dest: /etc/systemd/system/nvidia-persistenced.service.d/override.conf
-#  when: nvidia_driver_persistence_mode_on
-#
-#- name: remove persistenced service override
-#  file:
-#    path: /etc/systemd/system/nvidia-persistenced.service.d/override.conf
-#    state: absent
-#  when: not nvidia_driver_persistence_mode_on
-#
+- name: create persistenced override dir
+  file:
+    path: /etc/systemd/system/nvidia-persistenced.service.d/
+    state: directory
+    recurse: yes
+
+- name: configure persistenced service to turn on persistence mode
+  copy:
+    src: nvidia-persistenced-override.conf
+    dest: /etc/systemd/system/nvidia-persistenced.service.d/override.conf
+  when: nvidia_driver_persistence_mode_on
+
+- name: remove persistenced service override
+  file:
+    path: /etc/systemd/system/nvidia-persistenced.service.d/override.conf
+    state: absent
+  when: not nvidia_driver_persistence_mode_on
+
 #
 #- name: enable persistenced
 #  systemd:
