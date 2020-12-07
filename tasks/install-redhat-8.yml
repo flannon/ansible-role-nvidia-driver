@@ -53,6 +53,15 @@
     state: latest
     update_cache: yes
 
+- name: add repo
+  yum_repository:
+    name: cuda
+    description: NVIDIA CUDA YUM Repo
+    baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
+    gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
+    enabled: yes
+  environment: "{{proxy_env if proxy_env is defined else {}}}"
+
 - name: install nvidia-driver-module
   dnf:
     name: "@nvidie-driver:latest-dkms"
@@ -64,20 +73,12 @@
     name: dkms
     state: latest
 
-- name: add repo
-  yum_repository:
-    name: cuda
-    description: NVIDIA CUDA YUM Repo
-    baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
-    gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
-    enabled: yes
-  environment: "{{proxy_env if proxy_env is defined else {}}}"
-
-- name: install driver packages
-  dnf:
-    name: "{{ nvidia_driver_package_version | ternary('nvidia-driver-latest-dkms-'+nvidia_driver_package_version, 'nvidia-driver-latest-dkms') }}"
-    state: "{{ nvidia_driver_package_state }}"
-    autoremove: "{{ nvidia_driver_package_state == 'absent' }}"
-  register: install_driver
-  environment: "{{proxy_env if proxy_env is defined else {}}}"
+#
+#- name: install driver packages
+#  dnf:
+#    name: "{{ nvidia_driver_package_version | ternary('nvidia-driver-latest-dkms-'+nvidia_driver_package_version, 'nvidia-driver-latest-dkms') }}"
+#    state: "{{ nvidia_driver_package_state }}"
+#    autoremove: "{{ nvidia_driver_package_state == 'absent' }}"
+#  register: install_driver
+#  environment: "{{proxy_env if proxy_env is defined else {}}}"
 
