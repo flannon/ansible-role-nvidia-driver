@@ -20,23 +20,24 @@
       #name: ['kernel-headers','kernel-tools','kernel-tools-libs','kernel-devel','kernel-debug-devel']
       #environment: "{{proxy_env if proxy_env is defined else {}}}"
 
-  - name: update the kernel to latest version so we have a supported version
-    dnf:
-      name:
-        - "kernel"
-        - "kernel-headers"
-        - "kernel-tools"
-        - "kernel-tools-libs"
-        - "kernel-devel"
-        - "kernel-debug-devel"
-      state: latest
-    environment: "{{proxy_env if proxy_env is defined else {}}}"
-  - name: reboot to pick up the new kernel
-    reboot:
-
-- name: wait for the reboot
-  pause:
-    seconds: 30
+    - name: update the kernel to latest version so we have a supported version
+      dnf:
+        name:
+          - "kernel"
+          - "kernel-headers"
+          - "kernel-tools"
+          - "kernel-tools-libs"
+          - "kernel-devel"
+          - "kernel-debug-devel"
+        state: latest
+      environment: "{{proxy_env if proxy_env is defined else {}}}"
+    #  
+    #- name: reboot to pick up the new kernel
+    #  reboot:
+#
+#- name: wait for the reboot
+#  pause:
+#    seconds: 30
     
     #- name: add epel repo
     #  yum_repository:
@@ -49,17 +50,29 @@
 - name: install epel
   dnf:
     name: epel-release
+    version: latest
+    update_cashe: "expire-cache"
+
+
+- name: install nvidia-driver-module
+  dnf:
+    name: "@nvidie-driver:latest-dkms"
+    state: {{ nvidia_driver_package_version }}
+    update_cache: "expire-cache"
 
 - name: install dependencies
   dnf:
     name: dkms
+    state: latest
 
 - name: add repo
   yum_repository:
     name: cuda
     description: NVIDIA CUDA YUM Repo
-    baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
+    #baseurl: "{{ nvidia_driver_rhel_cuda_repo_baseurl }}"
+    baseurl: "https://developer.download.nvidia.com/compute/cuda/repos/rhel8/c86_64/"
     gpgkey: "{{ nvidia_driver_rhel_cuda_repo_gpgkey }}"
+    gpgkey: "https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/7fa2af80.pub"
   environment: "{{proxy_env if proxy_env is defined else {}}}"
 
 - name: install driver packages
