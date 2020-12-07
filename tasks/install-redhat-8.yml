@@ -52,11 +52,13 @@
     name: epel-release
     state: latest
     update_cache: yes
+    enabled: true
 
-- name: install dependencies
-  dnf:
-    name: dkms
-    state: latest
+#
+#- name: install dependencies
+#  dnf:
+#    name: dkms
+#    state: latest
 
 - name: add repo
   yum_repository:
