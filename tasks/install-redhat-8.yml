@@ -5,21 +5,15 @@
   block:
     - name: attempt to install kernel support packages for current version
       dnf:
-        name: "{{ item }}-{{ ansible_kernel }}"
+        name:
+          - "kernel-headers={{ ansible_kernel }}"
+          - "kernel-tools={{ ansible_kernel }}"
+          - "kernel-tools-libs={{ ansible_kernel }}"
+          - "kernel-devel={{ ansible_kernel }}"
+          - "kernel-debug-devel={{ ansible_kernel }}"
         state: present
-      with_items:
-        - "kernel-headers"
-        - "kernel-tools"
-        - "kernel-tools-libs"
-        - "kernel-devel"
-        - "kernel-debug-devel"
       environment: "{{proxy_env if proxy_env is defined else {}}}"
   rescue:
-      #- name: install kernel support packages for curent version
-      #dnf:
-      #name: ['kernel-headers','kernel-tools','kernel-tools-libs','kernel-devel','kernel-debug-devel']
-      #environment: "{{proxy_env if proxy_env is defined else {}}}"
-
     - name: update the kernel to latest version so we have a supported version
       dnf:
         name:
@@ -87,3 +81,24 @@
 #  register: install_driver
 #  environment: "{{proxy_env if proxy_env is defined else {}}}"
 
+# Prime the GPU with p2pbandwidth service
+- name: Set selinus permissive
+  selinux:
+    policy: targeted
+    state: permissive
+    reboot_required: false
+
+- name: install p2pbandwidth service
+  copy:
+    src: p2pbandwidth.service
+    dest: "/etc/systemd/system/p2pbandwidth.service"
+    owner: root
+    group: root
+    mode: "755"
+
+- name: enable p2pbandwidth service
+  systemd:
+    state: reloaded
+    daemon_reload: true
+    enabled: true
+    name: p2pbandwidth.service

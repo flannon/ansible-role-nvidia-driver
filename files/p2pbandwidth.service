@@ -1,0 +1,20 @@
+[Unit]
+Description=Enable p2p bandwidth latency test
+After=network.target
+After=systemd-user-sessions.service
+After=network-online.target
+Before=first-boot-complete.target
+Conflicts=shutdown.target
+ConditionFirstBoot=yes
+
+[Service]
+Type=oneshot
+RemainAfterExt=no
+ExecStart=/share/apps/local/bin/p2pBandwidthLatencyTest
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=%n
+
+
+[Install]
+WantedBy=multi-user.target
