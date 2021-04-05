@@ -82,11 +82,10 @@
 #  environment: "{{proxy_env if proxy_env is defined else {}}}"
 
 # Prime the GPU with p2pbandwidth service
-- name: Set selinus permissive
+- name: Set selinux permissive
   selinux:
     policy: targeted
     state: permissive
-    reboot_required: false
 
 - name: install p2pbandwidth service
   copy:
