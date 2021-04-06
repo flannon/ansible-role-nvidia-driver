@@ -97,7 +97,7 @@
 
 - name: enable p2pbandwidth service
   systemd:
-    state: reloaded
-    daemon_reload: true
-    enabled: true
     name: p2pbandwidth.service
+    #daemon_reload: true
+    enabled: true
+    state: stopped
