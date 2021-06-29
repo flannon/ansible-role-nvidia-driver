@@ -9,7 +9,7 @@ ConditionFirstBoot=yes
 
 [Service]
 Type=oneshot
-RemainAfterExt=no
+RemainAfterExit=no
 ExecStart=/share/apps/local/bin/p2pBandwidthLatencyTest
 StandardOutput=syslog
 StandardError=syslog
